@@ -1,0 +1,14 @@
+import { KeyRound, Mail } from 'lucide-react';
+import InputField from '../input/Input';
+
+function SignIn() {
+  return (
+    <form className="form card-body">
+      <InputField type="email" placeholder="Username" Icon={Mail} />
+      <InputField type="password" placeholder="Password" Icon={KeyRound} />
+      <button className="btn btn-primary">Submit</button>
+    </form>
+  );
+}
+
+export default SignIn;
