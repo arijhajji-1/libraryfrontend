@@ -3,7 +3,7 @@ import SignIn from '../shared/ui/form/SignIn';
 import ThemeToggle from '../shared/features/Themetoggle';
 
 interface AuthPageProps {
-  mode: string;
+  readonly mode: string;
 }
 
 function AuthPage({ mode }: AuthPageProps) {
