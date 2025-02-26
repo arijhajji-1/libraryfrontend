@@ -1,11 +1,8 @@
 import { useState } from 'react';
 import { Mail, UserRound, KeyRound } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import InputField from '../input/Input';
-import {
-  register,
-  type RegisterPayload,
-  type RegisterResponse,
-} from '../../../Api/authServices';
+import { register, type RegisterPayload, type RegisterResponse } from '../../../Api/authServices';
 
 function SignUp() {
   const [name, setName] = useState<string>('');
@@ -13,34 +10,38 @@ function SignUp() {
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Clear previous messages
     setError('');
     setSuccess('');
     const payload: RegisterPayload = { name, email, password };
     try {
       const data: RegisterResponse = await register(payload);
       console.log('User registered:', data);
-      // Set success message and clear fields
-      setSuccess('Registration successful!');
+      setSuccess('Registration successful! Redirecting to sign in...');
+      // Clear the fields
       setName('');
       setEmail('');
       setPassword('');
-    } catch (error: unknown) {
+      // Redirect to the sign-in page after a short delay
+      setTimeout(() => {
+        navigate('/signin');
+      }, 1500);
+    } catch (err: unknown) {
       if (
-        error &&
-        typeof error === 'object' &&
-        'response' in error &&
-        error.response &&
-        typeof error.response === 'object' &&
-        'data' in error.response &&
-        error.response.data &&
-        typeof error.response.data === 'object' &&
-        'message' in error.response.data
+        err &&
+        typeof err === 'object' &&
+        'response' in err &&
+        err.response &&
+        typeof err.response === 'object' &&
+        'data' in err.response &&
+        err.response.data &&
+        typeof err.response.data === 'object' &&
+        'message' in err.response.data
       ) {
-        setError((error.response.data as { message: string }).message);
+        setError((err.response.data as { message: string }).message);
       } else {
         setError('Registration failed');
       }

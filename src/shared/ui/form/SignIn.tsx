@@ -1,17 +1,15 @@
 import { useState } from 'react';
 import { Mail, KeyRound } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import InputField from '../input/Input';
-import {
-  login,
-  type LoginPayload,
-  type LoginResponse,
-} from '../../../Api/authServices';
+import { login, type LoginPayload, type LoginResponse } from '../../../Api/authServices';
 
 function SignIn() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,8 +21,11 @@ function SignIn() {
       console.log('Logged in user:', data);
       // Save the entire user object in localStorage
       localStorage.setItem('user', JSON.stringify(data));
-      setSuccess('Login successful!');
-      // Optionally, redirect to a protected route, e.g., navigate('/dashboard');
+      setSuccess('Login successful! Redirecting to home page...');
+      // Redirect to the home page after a short delay
+      setTimeout(() => {
+        navigate('/');
+      }, 1500);
     } catch (err: unknown) {
       if (
         err &&
