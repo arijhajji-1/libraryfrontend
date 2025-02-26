@@ -17,7 +17,7 @@ axiosClient.interceptors.response.use(
   (error) => {
     // Global error handling (if needed)
     return Promise.reject(error instanceof Error ? error : new Error(error));
-  }
+  },
 );
 
 export default axiosClient;
