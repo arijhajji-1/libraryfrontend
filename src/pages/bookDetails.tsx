@@ -1,4 +1,3 @@
-// src/components/BookDetails.tsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { Book } from '../shared/ui/card/BookCard';
