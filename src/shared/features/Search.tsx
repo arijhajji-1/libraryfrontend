@@ -1,5 +1,5 @@
 // src/components/SearchInput.tsx
-import type{ FC}  from 'react';
+import type { FC } from 'react';
 import { useState, useEffect, useMemo } from 'react';
 import { Search } from 'lucide-react';
 import type { Book } from '../ui/card/BookCard';
@@ -17,7 +17,7 @@ const SearchInput: FC<SearchInputProps> = ({ items, onSearch }) => {
     return items.filter(
       (book) =>
         book.title.toLowerCase().includes(query.toLowerCase()) ||
-        book.author.toLowerCase().includes(query.toLowerCase())
+        book.author.toLowerCase().includes(query.toLowerCase()),
     );
   }, [items, query]);
 

@@ -86,10 +86,10 @@ function Home() {
     try {
       const updatedBook = await addFavoriteBook(bookId, token);
       setBooks((prev) =>
-        prev.map((book) => (book._id === bookId ? updatedBook : book))
+        prev.map((book) => (book._id === bookId ? updatedBook : book)),
       );
       setFilteredBooks((prev) =>
-        prev.map((book) => (book._id === bookId ? updatedBook : book))
+        prev.map((book) => (book._id === bookId ? updatedBook : book)),
       );
     } catch (err) {
       console.error('Erreur lors de la mise à jour des favoris:', err);
@@ -108,16 +108,20 @@ function Home() {
           author: formData.get('author') as string,
           note: formData.get('note') as string,
         };
-        const updatedBook = await updateBook(editingBook._id, updatedBookData, token);
+        const updatedBook = await updateBook(
+          editingBook._id,
+          updatedBookData,
+          token,
+        );
         setBooks((prev) =>
           prev.map((book) =>
-            book._id === editingBook._id ? updatedBook : book
-          )
+            book._id === editingBook._id ? updatedBook : book,
+          ),
         );
         setFilteredBooks((prev) =>
           prev.map((book) =>
-            book._id === editingBook._id ? updatedBook : book
-          )
+            book._id === editingBook._id ? updatedBook : book,
+          ),
         );
       } else {
         // Mode ajout

@@ -14,10 +14,7 @@ const BookDetails: React.FC<BookDetailsProps> = ({ book }) => {
   return (
     <div className="min-h-screen bg-base-200 py-8">
       <div className="container mx-auto">
-        <button 
-          onClick={() => navigate(-1)}
-          className="btn btn-sm mb-4"
-        >
+        <button onClick={() => navigate(-1)} className="btn btn-sm mb-4">
           Retour
         </button>
         <div className="card bg-base-100 shadow-xl mx-auto max-w-3xl">

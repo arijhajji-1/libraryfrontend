@@ -24,7 +24,9 @@ function SignUp() {
     try {
       const data: RegisterResponse = await register(payload);
       console.log('Utilisateur inscrit:', data);
-      setSuccess('Inscription réussie ! Redirection vers la page de connexion...');
+      setSuccess(
+        'Inscription réussie ! Redirection vers la page de connexion...',
+      );
       // Réinitialiser les champs
       setName('');
       setEmail('');

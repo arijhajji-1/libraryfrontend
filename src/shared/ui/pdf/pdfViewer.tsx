@@ -10,14 +10,14 @@ const PDFTronViewer: React.FC<PDFTronViewerProps> = ({ fileUrl }) => {
   const viewerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Configure the WebViewer. 
+    // Configure the WebViewer.
     // Adjust the 'path' property below to point to your WebViewer assets (e.g., in public/webviewer)
     WebViewer(
       {
         path: '/webviewer/lib', // Path to WebViewer's 'lib' folder in your public folder
         initialDoc: fileUrl,
       },
-      viewerRef.current as HTMLDivElement
+      viewerRef.current as HTMLDivElement,
     ).then((instance) => {
       // You can get a reference to the instance here
       console.log('PDFTron WebViewer loaded', instance);

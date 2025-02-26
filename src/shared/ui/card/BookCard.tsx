@@ -44,12 +44,11 @@ const BookCard: React.FC<BookCardProps> = ({
         />
       </figure>
       <div className="card-body">
-      <Link to={`/books/${book._id}`}>
-        <h2 className="card-title">{book.title}</h2>
-        <p className="text-sm text-gray-500">{book.author}</p>
+        <Link to={`/books/${book._id}`}>
+          <h2 className="card-title">{book.title}</h2>
+          <p className="text-sm text-gray-500">{book.author}</p>
         </Link>
         <div className="card-actions justify-end mt-4 space-x-2">
-
           <button
             className="btn btn-ghost text-green-500"
             onClick={() => onFavorite(book._id)}

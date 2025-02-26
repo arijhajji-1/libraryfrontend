@@ -24,8 +24,8 @@ const BookDetailsPage = () => {
         const data = await getBook(id, token);
         setBook(data);
       } catch (err) {
-        console.error("Erreur lors de la récupération du livre:", err);
-        setError("Erreur lors de la récupération du livre.");
+        console.error('Erreur lors de la récupération du livre:', err);
+        setError('Erreur lors de la récupération du livre.');
       } finally {
         setLoading(false);
       }
@@ -35,7 +35,7 @@ const BookDetailsPage = () => {
   }, [id, token]);
 
   if (loading) return <p>Chargement...</p>;
-  if (error || !book) return <p>{error || "Livre non trouvé"}</p>;
+  if (error || !book) return <p>{error || 'Livre non trouvé'}</p>;
 
   return <BookDetails book={book} />;
 };
