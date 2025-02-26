@@ -1,5 +1,5 @@
 import axiosClient from './axiosClient';
-import type{ Book } from './bookServices';
+import type { Book } from './bookServices';
 
 export interface LoginPayload {
   email: string;
@@ -43,24 +43,37 @@ export const register = async (
   return response.data;
 };
 
-export const addFavoriteBook = async (bookId: string, token: string): Promise<Book> => {
-  const response = await axiosClient.put<Book>(`/users/favorites/add/${bookId}`, null, {
-    headers: { Authorization: `Bearer ${token}` }
-  });
+export const addFavoriteBook = async (
+  bookId: string,
+  token: string,
+): Promise<Book> => {
+  const response = await axiosClient.put<Book>(
+    `/users/favorites/add/${bookId}`,
+    null,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
   return response.data;
 };
 
 export const getFavoriteBooks = async (token: string): Promise<Book[]> => {
   const response = await axiosClient.get<Book[]>('/users/favorites', {
-    headers: { Authorization: `Bearer ${token}` }
+    headers: { Authorization: `Bearer ${token}` },
   });
   return response.data;
 };
 
-
-export const removeFavoriteBook = async (bookId: string, token: string): Promise<Book> => {
-  const response = await axiosClient.put<Book>(`/users/favorites/remove/${bookId}`, null, {
-    headers: { Authorization: `Bearer ${token}` }
-  });
+export const removeFavoriteBook = async (
+  bookId: string,
+  token: string,
+): Promise<Book> => {
+  const response = await axiosClient.put<Book>(
+    `/users/favorites/remove/${bookId}`,
+    null,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
   return response.data;
 };

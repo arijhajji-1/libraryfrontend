@@ -25,7 +25,13 @@ export interface BookCardProps {
 // URL for the default book cover image
 const defaultCover = img;
 
-const BookCard: React.FC<BookCardProps> = ({ book, onDelete, onUpdate, onFavorite,currentUserId }) => {
+const BookCard: React.FC<BookCardProps> = ({
+  book,
+  onDelete,
+  onUpdate,
+  onFavorite,
+  currentUserId,
+}) => {
   return (
     <div className="card bg-base-100 shadow-xl">
       {/* Add a figure element for the book cover */}
@@ -40,8 +46,8 @@ const BookCard: React.FC<BookCardProps> = ({ book, onDelete, onUpdate, onFavorit
         <h2 className="card-title">{book.title}</h2>
         <p className="text-sm text-gray-500">{book.author}</p>
         <div className="card-actions justify-end mt-4 space-x-2">
-          <button 
-            className="btn btn-ghost text-green-500" 
+          <button
+            className="btn btn-ghost text-green-500"
             onClick={() => onFavorite(book._id)}
             title="Favorite"
           >
@@ -49,15 +55,15 @@ const BookCard: React.FC<BookCardProps> = ({ book, onDelete, onUpdate, onFavorit
           </button>
           {book.user === currentUserId && (
             <>
-              <button 
-                className="btn btn-ghost text-yellow-500" 
+              <button
+                className="btn btn-ghost text-yellow-500"
                 onClick={() => onUpdate(book._id)}
                 title="Mettre à jour"
               >
                 <Edit size={20} />
               </button>
-              <button 
-                className="btn btn-ghost text-red-500" 
+              <button
+                className="btn btn-ghost text-red-500"
                 onClick={() => onDelete(book._id)}
                 title="Supprimer"
               >

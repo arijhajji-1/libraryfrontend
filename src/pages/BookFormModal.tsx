@@ -1,5 +1,5 @@
 // src/components/BookFormModal.tsx
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import type { FC } from 'react';
 
 interface BookFormModalProps {
@@ -13,7 +13,12 @@ interface BookFormModalProps {
   };
 }
 
-const BookFormModal: FC<BookFormModalProps> = ({ isOpen, onClose, onSubmit, initialData }) => {
+const BookFormModal: FC<BookFormModalProps> = ({
+  isOpen,
+  onClose,
+  onSubmit,
+  initialData,
+}) => {
   const [title, setTitle] = useState<string>(initialData?.title || '');
   const [author, setAuthor] = useState<string>(initialData?.author || '');
   const [note, setNote] = useState<string>(initialData?.note || '');
@@ -32,7 +37,9 @@ const BookFormModal: FC<BookFormModalProps> = ({ isOpen, onClose, onSubmit, init
     setError('');
     // Validate required fields; for editing, you might not require a new file.
     if (!title || !author || (!file && !initialData)) {
-      setError('Veuillez remplir les champs requis et sélectionner un fichier PDF.');
+      setError(
+        'Veuillez remplir les champs requis et sélectionner un fichier PDF.',
+      );
       return;
     }
     const formData = new FormData();

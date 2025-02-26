@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { Mail, KeyRound } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import InputField from '../input/Input';
-import { login, type LoginPayload, type LoginResponse } from '../../../Api/authServices';
+import {
+  login,
+  type LoginPayload,
+  type LoginResponse,
+} from '../../../Api/authServices';
 
 function SignIn() {
   const [email, setEmail] = useState<string>('');

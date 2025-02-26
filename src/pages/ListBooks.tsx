@@ -10,19 +10,25 @@ export interface BookListProps {
   currentUserId: string;
 }
 
-const BookList: React.FC<BookListProps> = ({ books, onDelete, onUpdate, onFavorite,currentUserId }) => {
+const BookList: React.FC<BookListProps> = ({
+  books,
+  onDelete,
+  onUpdate,
+  onFavorite,
+  currentUserId,
+}) => {
   return (
     <div className="container mx-auto p-4">
       {/* Responsive grid: 1 column on small, 2 on medium, 3 on large screens */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {books.map((book) => (
-          <BookCard 
-            key={book._id} 
-            book={book} 
+          <BookCard
+            key={book._id}
+            book={book}
             currentUserId={currentUserId}
-            onDelete={onDelete} 
-            onUpdate={onUpdate} 
-            onFavorite={onFavorite} 
+            onDelete={onDelete}
+            onUpdate={onUpdate}
+            onFavorite={onFavorite}
           />
         ))}
       </div>

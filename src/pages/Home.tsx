@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import NavBar from '../shared/layouts/NavBar';
 import BookList from './ListBooks'; // Ajustez le chemin d'importation si nécessaire
 import type { Book } from './BookCard';
-import { 
-  getAllBooks, 
-  getBooks, 
-  deleteBook, 
-  addBook, 
-  updateBook 
+import {
+  getAllBooks,
+  getBooks,
+  deleteBook,
+  addBook,
+  updateBook,
 } from '../Api/bookServices';
 import { getFavoriteBooks, addFavoriteBook } from '../Api/authServices';
 import BookFormModal from './BookFormModal';
@@ -82,7 +82,7 @@ function Home() {
     try {
       const updatedBook = await addFavoriteBook(bookId, token);
       setBooks((prev) =>
-        prev.map((book) => (book._id === bookId ? updatedBook : book))
+        prev.map((book) => (book._id === bookId ? updatedBook : book)),
       );
     } catch (err) {
       console.error('Erreur lors de la mise à jour des favoris:', err);
@@ -94,14 +94,22 @@ function Home() {
     try {
       if (editingBook) {
         // Mode édition
-        const updatedBookData: Partial<Omit<Book, "user" | "_id" | "lastModified">> = {
+        const updatedBookData: Partial<
+          Omit<Book, 'user' | '_id' | 'lastModified'>
+        > = {
           title: formData.get('title') as string,
           author: formData.get('author') as string,
           note: formData.get('note') as string,
         };
-        const updatedBook = await updateBook(editingBook._id, updatedBookData, token);
+        const updatedBook = await updateBook(
+          editingBook._id,
+          updatedBookData,
+          token,
+        );
         setBooks((prev) =>
-          prev.map((book) => (book._id === editingBook._id ? updatedBook : book))
+          prev.map((book) =>
+            book._id === editingBook._id ? updatedBook : book,
+          ),
         );
       } else {
         // Mode ajout
@@ -109,7 +117,7 @@ function Home() {
         setBooks((prev) => [newBook, ...prev]);
       }
     } catch (err) {
-      console.error('Erreur lors de l\'enregistrement du livre:', err);
+      console.error("Erreur lors de l'enregistrement du livre:", err);
     } finally {
       setModalOpen(false);
       setEditingBook(null);
@@ -182,7 +190,11 @@ function Home() {
         onSubmit={handleModalSubmit}
         initialData={
           editingBook
-            ? { title: editingBook.title, author: editingBook.author, note: editingBook.note }
+            ? {
+                title: editingBook.title,
+                author: editingBook.author,
+                note: editingBook.note,
+              }
             : undefined
         }
       />

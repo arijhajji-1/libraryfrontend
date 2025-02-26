@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { Mail, UserRound, KeyRound } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import InputField from '../input/Input';
-import { register, type RegisterPayload, type RegisterResponse } from '../../../Api/authServices';
+import {
+  register,
+  type RegisterPayload,
+  type RegisterResponse,
+} from '../../../Api/authServices';
 
 function SignUp() {
   const [name, setName] = useState<string>('');
