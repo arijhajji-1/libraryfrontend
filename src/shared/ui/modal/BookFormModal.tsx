@@ -58,7 +58,7 @@ const BookFormModal: FC<BookFormModalProps> = ({
       setNote('');
       setFile(null);
       onClose();
-    } catch (err) {
+    } catch  {
       setError('Une erreur est survenue.');
     }
   };

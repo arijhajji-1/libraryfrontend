@@ -25,7 +25,7 @@ function SignIn() {
       console.log('Logged in user:', data);
       // Save the entire user object in localStorage
       localStorage.setItem('user', JSON.stringify(data));
-      setSuccess('Login successful! Redirecting to home page...');
+      setSuccess('Connexion réussie ! Redirection vers la page d’accueil...');
       // Redirect to the home page after a short delay
       setTimeout(() => {
         navigate('/');
@@ -44,7 +44,7 @@ function SignIn() {
       ) {
         setError((err.response.data as { message: string }).message);
       } else {
-        setError('Login failed');
+        setError('La connexion a échoué');
       }
     }
   };
@@ -60,7 +60,7 @@ function SignIn() {
       />
       <InputField
         type="password"
-        placeholder="Password"
+        placeholder="Mot de passe"
         Icon={KeyRound}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -68,8 +68,18 @@ function SignIn() {
       {error && <p className="text-red-500">{error}</p>}
       {success && <p className="text-green-500">{success}</p>}
       <button className="btn btn-primary" type="submit">
-        Submit
+        Connexion
       </button>
+      <p className="mt-4 text-sm">
+        Vous n'avez pas de compte ?{' '}
+        <button
+          type="button"
+          className="text-blue-500 underline cursor-pointer bg-transparent border-none p-0"
+          onClick={() => navigate('/signup')}
+        >
+          Inscrivez-vous
+        </button>
+      </p>
     </form>
   );
 }

@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@pdftron/webviewer':
+        specifier: ^11.3.0
+        version: 11.3.0
       '@tailwindcss/vite':
         specifier: ^4.0.8
         version: 4.0.8(vite@6.1.1(@types/node@22.13.5)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))
@@ -432,6 +435,9 @@ packages:
   '@nodelib/fs.walk@1.2.8':
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
+
+  '@pdftron/webviewer@11.3.0':
+    resolution: {integrity: sha512-BTb9x2zlZdQfD+Hc0mL39T77I8S/+makNWtdKHY4cX3K3pc9s0uZJnzDZ9qXUlFkK99r9B1XKwpZlKGm5nAdrQ==}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -2678,6 +2684,8 @@ snapshots:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.0
+
+  '@pdftron/webviewer@11.3.0': {}
 
   '@pkgjs/parseargs@0.11.0':
     optional: true

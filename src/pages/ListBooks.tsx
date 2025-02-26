@@ -1,7 +1,7 @@
 // src/components/BookList.tsx
 import React from 'react';
-import BookCard from './BookCard';
-import type { Book } from './BookCard';
+import BookCard from '../shared/ui/card/BookCard';
+import type { Book } from '../shared/ui/card/BookCard';
 export interface BookListProps {
   books: Book[];
   onDelete: (id: string) => void;
@@ -21,6 +21,7 @@ const BookList: React.FC<BookListProps> = ({
     <div className="container mx-auto p-4">
       {/* Responsive grid: 1 column on small, 2 on medium, 3 on large screens */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
         {books.map((book) => (
           <BookCard
             key={book._id}

@@ -1,9 +1,27 @@
 import { type FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SearchInput from '../features/Search';
 import ThemeToggle from '../features/Themetoggle';
-import avatar from '../../assets/image.png'; // Import the image
+import avatar from '../../assets/image.png';
 
-const NavBar: FC = () => {
+// Import the Book type from your shared types file
+import type { Book } from '../ui/card/BookCard';
+
+interface NavBarProps {
+  items: Book[];
+  onSearch: (filtered: Book[]) => void;
+}
+
+const NavBar: FC<NavBarProps> = ({ items, onSearch }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = (): void => {
+    // Clear the user data from localStorage
+    localStorage.removeItem('user');
+    // Redirect to the login page
+    navigate('/signin');
+  };
+
   return (
     <div className="navbar bg-base-200 w-full p-4 flex justify-between items-center shadow-md">
       {/* Avatar & Title */}
@@ -16,15 +34,18 @@ const NavBar: FC = () => {
         <span className="text-lg font-bold">Zlib</span>
       </div>
 
-      {/* SearchInput & Theme Toggle */}
+      {/* SearchInput, Theme Toggle and Logout */}
       <div className="flex items-center gap-4">
-        <SearchInput />
+        <SearchInput items={items} onSearch={onSearch} />
         <ThemeToggle />
+        <button className="btn btn-outline btn-sm" onClick={handleLogout}>
+          Déconnexion
+        </button>
         <div className="avatar">
           <div className="ring-primary ring-offset-base-100 w-14 rounded-full ring ring-offset-2">
             <img
               src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-              alt=""
+              alt="User"
             />
           </div>
         </div>

@@ -23,13 +23,13 @@ function SignUp() {
     const payload: RegisterPayload = { name, email, password };
     try {
       const data: RegisterResponse = await register(payload);
-      console.log('User registered:', data);
-      setSuccess('Registration successful! Redirecting to sign in...');
-      // Clear the fields
+      console.log('Utilisateur inscrit:', data);
+      setSuccess('Inscription réussie ! Redirection vers la page de connexion...');
+      // Réinitialiser les champs
       setName('');
       setEmail('');
       setPassword('');
-      // Redirect to the sign-in page after a short delay
+      // Rediriger vers la page de connexion après un court délai
       setTimeout(() => {
         navigate('/signin');
       }, 1500);
@@ -47,7 +47,7 @@ function SignUp() {
       ) {
         setError((err.response.data as { message: string }).message);
       } else {
-        setError('Registration failed');
+        setError("L'inscription a échoué");
       }
     }
   };
@@ -56,7 +56,7 @@ function SignUp() {
     <form className="form card-body" onSubmit={handleSubmit}>
       <InputField
         type="text"
-        placeholder="Username"
+        placeholder="Nom d'utilisateur"
         Icon={UserRound}
         value={name}
         onChange={(e) => setName(e.target.value)}
@@ -70,7 +70,7 @@ function SignUp() {
       />
       <InputField
         type="password"
-        placeholder="Password"
+        placeholder="Mot de passe"
         Icon={KeyRound}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -78,8 +78,18 @@ function SignUp() {
       {error && <p className="text-red-500">{error}</p>}
       {success && <p className="text-green-500">{success}</p>}
       <button className="btn btn-primary" type="submit">
-        Submit
+        S'inscrire
       </button>
+      <p className="mt-4 text-sm">
+        Vous avez déjà un compte ?{' '}
+        <button
+          type="button"
+          className="text-blue-500 underline cursor-pointer bg-transparent border-none p-0"
+          onClick={() => navigate('/signin')}
+        >
+          Connectez-vous
+        </button>
+      </p>
     </form>
   );
 }
