@@ -91,3 +91,56 @@ export const getBook = async (bookId: string, token: string): Promise<Book> => {
   });
   return response.data;
 };
+/**
+ * Ajouter un livre aux favoris
+ * Utilise l'endpoint PUT /books/favorites/add/:bookId
+ * @param bookId
+ * @param token
+ * @returns Book
+ */
+export const addFavoriteBook = async (
+  bookId: string,
+  token: string,
+): Promise<Book> => {
+  const response = await axiosClient.put<Book>(
+    `/books/favorites/add/${bookId}`,
+    {},
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
+  return response.data;
+};
+
+/**
+ * Récupérer les livres favoris de l'utilisateur
+ * @param token
+ * @returns Book[]
+ */
+export const getFavoriteBooks = async (token: string): Promise<Book[]> => {
+  const response = await axiosClient.get<Book[]>('/books/favorites', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+};
+
+/**
+ * Supprimer un livre des favoris
+ * Utilise l'endpoint PUT /books/favorites/remove/:bookId
+ * @param bookId
+ * @param token
+ * @returns Book
+ */
+export const removeFavoriteBook = async (
+  bookId: string,
+  token: string,
+): Promise<Book> => {
+  const response = await axiosClient.put<Book>(
+    `/books/favorites/remove/${bookId}`,
+    {},
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
+  return response.data;
+};

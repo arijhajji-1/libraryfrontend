@@ -1,25 +1,23 @@
-import type { FC } from 'react';
-import { useState, useEffect, useMemo } from 'react';
+// src/components/SearchInput.tsx
+import { type FC, useState, useEffect, useMemo } from 'react';
 import { Search } from 'lucide-react';
 
-type SearchInputProps = {
+interface SearchInputProps {
   items: Book[];
   onSearch: (filtered: Book[]) => void;
-};
+}
 
 const SearchInput: FC<SearchInputProps> = ({ items, onSearch }) => {
   const [query, setQuery] = useState<string>('');
 
-  // useMemo will recompute filteredBooks only when items or query change.
   const filteredBooks = useMemo(() => {
-    return items.filter(
+    return (items || []).filter(
       (book) =>
-        book.title.toLowerCase().includes(query.toLowerCase()) ||
-        book.author.toLowerCase().includes(query.toLowerCase()),
+        (book.title || '').toLowerCase().includes(query.toLowerCase()) ||
+        (book.author || '').toLowerCase().includes(query.toLowerCase()),
     );
   }, [items, query]);
 
-  // When filteredBooks change, call the onSearch callback.
   useEffect(() => {
     onSearch(filteredBooks);
   }, [filteredBooks, onSearch]);

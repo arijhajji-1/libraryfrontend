@@ -1,3 +1,4 @@
+// src/pages/Books.tsx
 import { useEffect, useState } from 'react';
 import BookList from './ListBooks';
 import BookFormModal from '../ui/modal/BookFormModal';
@@ -7,8 +8,10 @@ import {
   getAllBooks,
   getBooks,
   updateBook,
+  addFavoriteBook,
+  removeFavoriteBook,
+  getFavoriteBooks,
 } from '../../service/Bookservices';
-import { addFavoriteBook, getFavoriteBooks } from '../../service/authServices';
 import Tabs from '../ui/tabs/Tabs';
 import SearchInput from '../features/Search';
 
@@ -18,20 +21,22 @@ function Books() {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  // Pour gérer l'édition, on stocke le livre à éditer (null si ajout)
   const [editingBook, setEditingBook] = useState<Book | null>(null);
   const [activeTab, setActiveTab] = useState<string>('tous');
 
-  // Récupérer l'utilisateur depuis le localStorage (doit contenir _id et token)
+  // Récupérer l'utilisateur depuis le localStorage (doit contenir _id, token et favorites)
   const userData = localStorage.getItem('user')
     ? JSON.parse(localStorage.getItem('user')!)
     : null;
   const token = userData ? userData.token : '';
   const currentUserId = userData ? userData._id : '';
+  const [userFavorites, setUserFavorites] = useState<string[]>(
+    userData?.favorites || [],
+  );
 
-  function onTabChange(tab: string) {
+  const onTabChange = (tab: string) => {
     setActiveTab(tab);
-  }
+  };
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -55,7 +60,7 @@ function Books() {
           data = await getFavoriteBooks(token);
         }
         setBooks(data);
-        setFilteredBooks(data); // initialiser la liste filtrée avec tous les livres
+        setFilteredBooks(data);
       } catch (err) {
         console.error('Erreur lors de la récupération des livres:', err);
         setError('Erreur lors de la récupération des livres');
@@ -77,27 +82,28 @@ function Books() {
     }
   };
 
-  // Lorsqu'on clique sur "Mettre à jour", on ouvre la modale en mode édition
   const handleEditClick = (book: Book) => {
     setEditingBook(book);
     setModalOpen(true);
   };
 
+  // Basculer le favori en fonction du statut actuel
   const handleFavorite = async (bookId: string) => {
     try {
-      const updatedBook = await addFavoriteBook(bookId, token);
-      setBooks((prev) =>
-        prev.map((book) => (book._id === bookId ? updatedBook : book)),
-      );
-      setFilteredBooks((prev) =>
-        prev.map((book) => (book._id === bookId ? updatedBook : book)),
-      );
+      if (userFavorites.includes(bookId)) {
+        // Supprimer des favoris
+        await removeFavoriteBook(bookId, token);
+        setUserFavorites((prev) => prev.filter((id) => id !== bookId));
+      } else {
+        // Ajouter aux favoris
+        await addFavoriteBook(bookId, token);
+        setUserFavorites((prev) => [bookId, ...prev]);
+      }
     } catch (err) {
       console.error('Erreur lors de la mise à jour des favoris:', err);
     }
   };
 
-  // Cette fonction sera appelée par la modale lors de la soumission
   const handleModalSubmit = async (formData: FormData) => {
     try {
       if (editingBook) {
@@ -137,8 +143,9 @@ function Books() {
       setEditingBook(null);
     }
   };
+
   return (
-    <div className="max-h-screen ">
+    <div className="max-h-screen">
       <Tabs activeTab={activeTab} onTabChange={onTabChange} />
       <div className="p-4">
         <div className="flex items-center justify-between mb-4">
@@ -148,7 +155,7 @@ function Books() {
             <button
               className="btn ml-2 btn-primary btn-outline"
               onClick={() => {
-                setEditingBook(null); // Mode ajout
+                setEditingBook(null);
                 setModalOpen(true);
               }}
             >
@@ -156,7 +163,6 @@ function Books() {
             </button>
           </div>
         </div>
-
         {loading && <p>Chargement...</p>}
         {error && <p className="text-red-500">{error}</p>}
         {!loading && books.length === 0 && <p>Aucun livre trouvé.</p>}
@@ -164,6 +170,7 @@ function Books() {
           <BookList
             books={filteredBooks}
             currentUserId={currentUserId}
+            userFavorites={userFavorites}
             onDelete={handleDelete}
             onUpdate={(id: string) => {
               const bookToEdit = books.find((b) => b._id === id);

@@ -10,9 +10,9 @@ type BookCardProps = {
   onUpdate: (id: string) => void;
   onFavorite: (id: string) => void;
   currentUserId: string;
+  userFavorites: string[]; // Tableau des IDs de livres favoris de l'utilisateur
 };
 
-// URL for the default book cover image
 const defaultCover = img;
 
 const BookCard: React.FC<BookCardProps> = ({
@@ -21,14 +21,17 @@ const BookCard: React.FC<BookCardProps> = ({
   onUpdate,
   onFavorite,
   currentUserId,
+  userFavorites,
 }) => {
+  // Détermine si le livre est favori en vérifiant si son ID est présent dans le tableau des favoris
+  const isFavorite = userFavorites.includes(book._id);
+
   return (
     <div className="card bg-base-200 shadow-xl">
-      {/* Add a figure element for the book cover */}
       <figure>
         <img
           src={defaultCover}
-          alt="Default Book Cover"
+          alt="Couverture du livre"
           className="object-cover h-48 w-full"
         />
       </figure>
@@ -39,9 +42,9 @@ const BookCard: React.FC<BookCardProps> = ({
         </Link>
         <div className="card-actions justify-end mt-4 space-x-2">
           <button
-            className="btn btn-ghost text-green-500"
+            className={`btn btn-ghost ${isFavorite ? 'text-red-500' : 'text-gray-500'}`}
             onClick={() => onFavorite(book._id)}
-            title="Favorite"
+            title="Favoriser"
           >
             <Heart size={20} />
           </button>

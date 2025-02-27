@@ -4,18 +4,20 @@ import BookCard from '../ui/card/BookCard';
 
 type BookListProps = {
   books: Book[];
+  currentUserId: string;
+  userFavorites: string[];
   onDelete: (id: string) => void;
   onUpdate: (id: string) => void;
   onFavorite: (id: string) => void;
-  currentUserId: string;
 };
 
 const BookList: React.FC<BookListProps> = ({
   books,
+  currentUserId,
+  userFavorites,
   onDelete,
   onUpdate,
   onFavorite,
-  currentUserId,
 }) => {
   return (
     <div className="container mx-auto">
@@ -25,6 +27,7 @@ const BookList: React.FC<BookListProps> = ({
             key={book._id}
             book={book}
             currentUserId={currentUserId}
+            userFavorites={userFavorites}
             onDelete={onDelete}
             onUpdate={onUpdate}
             onFavorite={onFavorite}
