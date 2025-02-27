@@ -1,6 +1,6 @@
 // src/components/BookDetails.tsx
 import React from 'react';
-import PDFTronViewer from '../pdf/pdfViewer';
+import PDFViewer from '../pdf/pdfViewer';
 
 type BookDetailsProps = {
   book: Book;
@@ -15,7 +15,9 @@ const BookDetails: React.FC<BookDetailsProps> = ({ book }) => {
       <div className="mt-4">
         <h3 className="text-2xl font-semibold mb-2">Lecture du PDF</h3>
         <div className="border p-4 rounded">
-          <PDFTronViewer fileUrl={book.pdfUrl} />
+          <PDFViewer
+            fileUrl={`http://localhost:3000/${book.pdfUrl.replace(/\\/g, '/')}`}
+          />
         </div>
       </div>
     </div>
