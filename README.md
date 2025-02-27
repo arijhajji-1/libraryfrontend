@@ -48,7 +48,7 @@ L'application est construite avec **React, TypeScript, Vite, Tailwind CSS et Dai
 ### 1️⃣ Cloner le projet
 
 ```sh
-git clone https://github.com/votre-utilisateur/frontendbook.git
+git clone https://github.com/arijhajji-1/libraryfrontend
 cd frontendbook
 ```
 
@@ -105,27 +105,29 @@ L’application sera alors accessible sur http://localhost.
 
 Le projet est organisé comme suit :
 
+```sh
 src/
-├── assets/
-├── entities/
-├── pages/
-├── service/
-├── shared/
-├── App.css
-├── App.tsx
-├── index.css
-├── main.tsx
-├── privateRoute.tsx
-└── vite-env.d.ts
+  ├── assets/          # Contient les ressources statiques (images, etc.)
+  ├── entities/        # Types ou interfaces métier
+  ├── pages/           # Composants de pages (ex. Home, Auth, BookDetails, etc.)
+  ├── service/         # Fonctions de logique métier ou appels API
+  ├── shared/          # Composants et utilitaires partagés (layout, hooks, etc.)
+  ├── App.css
+  ├── App.tsx          # Point d'entrée principal de l'application
+  ├── index.css
+  ├── main.tsx         # Point d'entrée React
+  ├── privateRoute.tsx # Garde de route pour la protection des pages
+  └── vite-env.d.ts    # Déclarations de types pour Vite
+```
 
-assets/ : Contient les ressources statiques (images, etc.)
-entities/ : Types ou interfaces métier
-pages/ : Composants de pages (ex. Home, Auth, BookDetails, etc.)
-service/ : Fonctions de logique métier ou appels API
-shared/ : Composants et utilitaires partagés (layout, hooks, etc.)
-App.tsx / main.tsx : Points d’entrée de l’application
-privateRoute.tsx : Garde de route pour la protection des pages
-vite-env.d.ts : Déclarations de types pour Vite
+- assets/ : Contient les ressources statiques (images, etc.)
+- entities/ : Types ou interfaces métier
+- pages/ : Composants de pages (ex. Home, Auth, BookDetails, etc.)
+- service/ : Fonctions de logique métier ou appels API
+- shared/ : Composants et utilitaires partagés (layout, hooks, etc.)
+- App.tsx / main.tsx : Points d’entrée de l’application
+- privateRoute.tsx : Garde de route pour la protection des pages
+- vite-env.d.ts : Déclarations de types pour Vite
 
 ## ⚙️ Utilisation
 
@@ -133,24 +135,23 @@ Navigation :
 L’utilisateur doit se connecter pour accéder au tableau de bord.
 S’il n’est pas authentifié, il est redirigé vers la page de connexion.
 
-Ajout/Modification de Livres :
-Le tableau de bord permet d’ajouter, modifier et supprimer des livres via un formulaire.
-Chaque livre dispose d’une page dédiée, affichant ses informations et un lecteur PDF.
+- Ajout/Modification de Livres :
+  Le tableau de bord permet d’ajouter, modifier et supprimer des livres via un formulaire.
+  Chaque livre dispose d’une page dédiée, affichant ses informations et un lecteur PDF.
 
-Recherche :
-La barre de recherche dans la NavBar filtre la liste des livres affichés.
+- Recherche :
+  La barre de recherche dans la NavBar filtre la liste des livres affichés.
 
 ## 🛡 Qualité du Code
 
 Ce projet utilise ESLint, Prettier et Husky pour maintenir un code propre et formaté :
 
-ESLint : Analyse statique du code
-Prettier : Formatage automatique
-Husky : Exécute ESLint/Prettier avant chaque commit
-Exécutez manuellement :
+- **ESLint** : Analyse statique du code
+- **Prettier** : Formatage automatique
+- **Husky** : Exécute ESLint/Prettier avant chaque commit
+  Exécutez manuellement :
 
 ```sh
-
 pnpm run lint
 pnpm run prettier:check
 ```
