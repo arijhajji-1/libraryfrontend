@@ -2,9 +2,9 @@
 import React, { useEffect, useRef } from 'react';
 import WebViewer from '@pdftron/webviewer';
 
-interface PDFTronViewerProps {
+type PDFTronViewerProps = {
   fileUrl: string;
-}
+};
 
 const PDFTronViewer: React.FC<PDFTronViewerProps> = ({ fileUrl }) => {
   const viewerRef = useRef<HTMLDivElement>(null);

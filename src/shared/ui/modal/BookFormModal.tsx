@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import type { FC } from 'react';
 
-interface BookFormModalProps {
+type BookFormModalProps = {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (formData: FormData) => Promise<void>;
@@ -11,7 +11,7 @@ interface BookFormModalProps {
     author: string;
     note?: string;
   };
-}
+};
 
 const BookFormModal: FC<BookFormModalProps> = ({
   isOpen,

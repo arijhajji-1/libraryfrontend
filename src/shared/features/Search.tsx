@@ -1,13 +1,11 @@
-// src/components/SearchInput.tsx
 import type { FC } from 'react';
 import { useState, useEffect, useMemo } from 'react';
 import { Search } from 'lucide-react';
-import type { Book } from '../ui/card/BookCard';
 
-interface SearchInputProps {
+type SearchInputProps = {
   items: Book[];
   onSearch: (filtered: Book[]) => void;
-}
+};
 
 const SearchInput: FC<SearchInputProps> = ({ items, onSearch }) => {
   const [query, setQuery] = useState<string>('');

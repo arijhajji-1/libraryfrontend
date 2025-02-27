@@ -1,18 +1,9 @@
 import axiosClient from './axiosClient';
-import type { Book } from './bookServices';
-
-export interface LoginPayload {
-  email: string;
-  password: string;
-}
-
-export interface LoginResponse {
-  _id: string;
-  name: string;
-  email: string;
-  token: string;
-}
-
+/**
+ *
+ * @param payload
+ * @returns
+ */
 export const login = async (payload: LoginPayload): Promise<LoginResponse> => {
   const response = await axiosClient.post<LoginResponse>(
     '/users/login',
@@ -21,17 +12,11 @@ export const login = async (payload: LoginPayload): Promise<LoginResponse> => {
   return response.data;
 };
 
-export interface RegisterPayload {
-  name: string;
-  email: string;
-  password: string;
-}
-
-export interface RegisterResponse {
-  _id: string;
-  name: string;
-  email: string;
-}
+/**
+ *
+ * @param payload
+ * @returns
+ */
 
 export const register = async (
   payload: RegisterPayload,
@@ -42,7 +27,12 @@ export const register = async (
   );
   return response.data;
 };
-
+/**
+ *
+ * @param bookId
+ * @param token
+ * @returns
+ */
 export const addFavoriteBook = async (
   bookId: string,
   token: string,
@@ -57,6 +47,12 @@ export const addFavoriteBook = async (
   return response.data;
 };
 
+/**
+ *
+ * @param token
+ * @returns
+ */
+
 export const getFavoriteBooks = async (token: string): Promise<Book[]> => {
   const response = await axiosClient.get<Book[]>('/users/favorites', {
     headers: { Authorization: `Bearer ${token}` },
@@ -64,6 +60,12 @@ export const getFavoriteBooks = async (token: string): Promise<Book[]> => {
   return response.data;
 };
 
+/**
+ *
+ * @param bookId
+ * @param token
+ * @returns
+ */
 export const removeFavoriteBook = async (
   bookId: string,
   token: string,

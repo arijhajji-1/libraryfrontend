@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-function ThemeToggle() {
+const ThemeToggle = () => {
   const [theme, setTheme] = useState('light');
 
   useEffect(() => {
@@ -12,18 +12,16 @@ function ThemeToggle() {
   };
 
   return (
-    <>
-      <label className="swap swap-rotate border-2 border-base-400 rounded-full p-2">
-        <input
-          type="checkbox"
-          onChange={toggleTheme}
-          checked={theme === 'dark'}
-        />
-        <div className="swap-on">🌙</div>
-        <div className="swap-off">☀️</div>
-      </label>
-    </>
+    <label className="swap swap-rotate border-2 border-base-400 rounded-full p-2">
+      <input
+        type="checkbox"
+        onChange={toggleTheme}
+        checked={theme === 'dark'}
+      />
+      <div className="swap-on">🌙</div>
+      <div className="swap-off">☀️</div>
+    </label>
   );
-}
+};
 
 export default ThemeToggle;

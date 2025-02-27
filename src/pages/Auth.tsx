@@ -2,11 +2,11 @@ import SignUp from '../shared/ui/form/SignUp';
 import SignIn from '../shared/ui/form/SignIn';
 import ThemeToggle from '../shared/features/Themetoggle';
 
-interface AuthPageProps {
-  readonly mode: string;
-}
+type AuthPageProps = {
+  mode: 'signup' | 'signin';
+};
 
-function AuthPage({ mode }: AuthPageProps) {
+const AuthPage: React.FC<AuthPageProps> = ({ mode }) => {
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse w-full max-w-2xl p-4 rounded-lg">
@@ -30,6 +30,6 @@ function AuthPage({ mode }: AuthPageProps) {
       </div>
     </div>
   );
-}
+};
 
 export default AuthPage;

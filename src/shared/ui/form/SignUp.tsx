@@ -2,13 +2,9 @@ import { useState } from 'react';
 import { Mail, UserRound, KeyRound } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import InputField from '../input/Input';
-import {
-  register,
-  type RegisterPayload,
-  type RegisterResponse,
-} from '../../../Api/authServices';
+import { register } from '../../../service/authServices';
 
-function SignUp() {
+const SignUp = () => {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -94,6 +90,6 @@ function SignUp() {
       </p>
     </form>
   );
-}
+};
 
 export default SignUp;

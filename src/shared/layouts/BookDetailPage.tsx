@@ -1,16 +1,14 @@
 // src/pages/BookDetailsPage.tsx
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import BookDetails from './bookDetails';
-import { getBook } from '../Api/bookServices';
-import type { Book } from '../shared/ui/card/BookCard';
+import BookDetails from '../ui/card/BookDetails';
+import { getBook } from '../../service/Bookservices';
 
 const BookDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
   const [book, setBook] = useState<Book | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
-
   // Récupérer le token depuis le localStorage
   const token = localStorage.getItem('user')
     ? JSON.parse(localStorage.getItem('user')!).token
@@ -37,7 +35,11 @@ const BookDetailsPage = () => {
   if (loading) return <p>Chargement...</p>;
   if (error || !book) return <p>{error || 'Livre non trouvé'}</p>;
 
-  return <BookDetails book={book} />;
+  return (
+    <div className="min-h-screen py-8">
+      <BookDetails book={book} />
+    </div>
+  );
 };
 
 export default BookDetailsPage;

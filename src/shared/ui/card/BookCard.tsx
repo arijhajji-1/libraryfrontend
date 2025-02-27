@@ -4,24 +4,13 @@ import { Heart, Edit, Trash2 } from 'lucide-react';
 import img from '../../../assets/jonas-jacobsson-0FRJ2SCuY4k-unsplash.jpg';
 import { Link } from 'react-router-dom';
 
-export interface Book {
-  _id: string;
-  title: string;
-  author: string;
-  note?: string;
-  pdfUrl: string;
-  lastModified: string; // ISO date string
-  user: string;
-  // Optionally, you could add a coverImage property here if available.
-}
-
-export interface BookCardProps {
+type BookCardProps = {
   book: Book;
   onDelete: (id: string) => void;
   onUpdate: (id: string) => void;
   onFavorite: (id: string) => void;
   currentUserId: string;
-}
+};
 
 // URL for the default book cover image
 const defaultCover = img;
@@ -34,7 +23,7 @@ const BookCard: React.FC<BookCardProps> = ({
   currentUserId,
 }) => {
   return (
-    <div className="card bg-base-100 shadow-xl">
+    <div className="card bg-base-200 shadow-xl">
       {/* Add a figure element for the book cover */}
       <figure>
         <img

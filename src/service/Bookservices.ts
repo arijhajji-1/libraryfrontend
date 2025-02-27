@@ -1,23 +1,17 @@
-// src/api/bookServices.ts
 import axiosClient from './axiosClient';
-// Define the Book type inline
-export interface Book {
-  _id: string;
-  title: string;
-  author: string;
-  note?: string;
-  pdfUrl: string;
-  lastModified: string; // using string to represent ISO date strings
-  user: string;
-}
 
-// get all books
+/**
+ *
+ * @returns
+ */
 export const getAllBooks = async (): Promise<Book[]> => {
   const response = await axiosClient.get<Book[]>('/books/all');
   return response.data;
 };
 
-// Get all books for the authenticated user
+/**
+ * @param token
+ */
 export const getBooks = async (token: string): Promise<Book[]> => {
   const response = await axiosClient.get<Book[]>('/books', {
     headers: { Authorization: `Bearer ${token}` },
@@ -25,7 +19,12 @@ export const getBooks = async (token: string): Promise<Book[]> => {
   return response.data;
 };
 
-// Add a new book using FormData (for file upload)
+/**
+ *
+ * @param formData
+ * @param token
+ * @returns
+ */
 export const addBook = async (
   formData: FormData,
   token: string,
@@ -39,7 +38,13 @@ export const addBook = async (
   return response.data;
 };
 
-// Update an existing book by ID with partial book data
+/**
+ *
+ * @param bookId
+ * @param payload
+ * @param token
+ * @returns
+ */
 export const updateBook = async (
   bookId: string,
   payload: Partial<Omit<Book, '_id' | 'user' | 'lastModified'>>,
@@ -55,7 +60,12 @@ export const updateBook = async (
   return response.data;
 };
 
-// Delete a book by its ID
+/**
+ *
+ * @param bookId
+ * @param token
+ * @returns message
+ */
 export const deleteBook = async (
   bookId: string,
   token: string,
@@ -69,7 +79,12 @@ export const deleteBook = async (
   return response.data;
 };
 
-// Get a single book by its ID
+/**
+ *
+ * @param bookId
+ * @param token
+ * @returns Book
+ */
 export const getBook = async (bookId: string, token: string): Promise<Book> => {
   const response = await axiosClient.get<Book>(`/books/${bookId}`, {
     headers: { Authorization: `Bearer ${token}` },
