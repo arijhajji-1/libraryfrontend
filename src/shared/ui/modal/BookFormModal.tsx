@@ -2,34 +2,23 @@
 import { useState, useEffect } from 'react';
 import type { FC } from 'react';
 
-type BookFormModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  onSubmit: (formData: FormData) => Promise<void>;
-  initialData?: {
-    title: string;
-    author: string;
-    note?: string;
-  };
-};
-
 const BookFormModal: FC<BookFormModalProps> = ({
   isOpen,
   onClose,
   onSubmit,
   initialData,
 }) => {
-  const [title, setTitle] = useState<string>(initialData?.title || '');
-  const [author, setAuthor] = useState<string>(initialData?.author || '');
-  const [note, setNote] = useState<string>(initialData?.note || '');
+  const [title, setTitle] = useState<string>(initialData?.title ?? '');
+  const [author, setAuthor] = useState<string>(initialData?.author ?? '');
+  const [note, setNote] = useState<string>(initialData?.note ?? '');
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string>('');
 
   // Update form fields if initialData changes (e.g. when editing)
   useEffect(() => {
-    setTitle(initialData?.title || '');
-    setAuthor(initialData?.author || '');
-    setNote(initialData?.note || '');
+    setTitle(initialData?.title ?? '');
+    setAuthor(initialData?.author ?? '');
+    setNote(initialData?.note ?? '');
   }, [initialData]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -71,7 +60,7 @@ const BookFormModal: FC<BookFormModalProps> = ({
         </h3>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="label">
+            <label htmlFor="Title" className="label">
               <span className="label-text">Titre</span>
             </label>
             <input
@@ -83,7 +72,7 @@ const BookFormModal: FC<BookFormModalProps> = ({
             />
           </div>
           <div>
-            <label className="label">
+            <label htmlFor="author" className="label">
               <span className="label-text">Auteur</span>
             </label>
             <input
@@ -95,7 +84,7 @@ const BookFormModal: FC<BookFormModalProps> = ({
             />
           </div>
           <div>
-            <label className="label">
+            <label htmlFor="Note" className="label">
               <span className="label-text">Note</span>
             </label>
             <textarea
@@ -106,14 +95,15 @@ const BookFormModal: FC<BookFormModalProps> = ({
             />
           </div>
           <div>
-            <label className="label">
+            <label htmlFor="pdfFile" className="label">
               <span className="label-text">Fichier PDF</span>
             </label>
             <input
               type="file"
+              id="pdfFile"
               accept="application/pdf"
               onChange={(e) => {
-                if (e.target.files && e.target.files[0]) {
+                if (e.target.files?.[0]) {
                   setFile(e.target.files[0]);
                 }
               }}

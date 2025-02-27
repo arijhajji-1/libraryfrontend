@@ -1,10 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as pdfjsLib from 'pdfjs-dist';
 
-type PDFViewerProps = {
-  fileUrl: string; // URL of the PDF file
-};
-
 const PDFViewer: React.FC<PDFViewerProps> = ({ fileUrl }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   console.log('fileUrl', fileUrl);

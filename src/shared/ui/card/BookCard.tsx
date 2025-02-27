@@ -4,15 +4,6 @@ import { Heart, Edit, Trash2 } from 'lucide-react';
 import img from '../../../assets/jonas-jacobsson-0FRJ2SCuY4k-unsplash.jpg';
 import { Link } from 'react-router-dom';
 
-type BookCardProps = {
-  book: Book;
-  onDelete: (id: string) => void;
-  onUpdate: (id: string) => void;
-  onFavorite: (id: string) => void;
-  currentUserId: string;
-  userFavorites: string[]; // Tableau des IDs de livres favoris de l'utilisateur
-};
-
 const defaultCover = img;
 
 const BookCard: React.FC<BookCardProps> = ({

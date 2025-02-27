@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { FC } from 'react';
 
-type TabsProps = {
-  activeTab: string;
-  onTabChange: (tab: string) => void;
-};
-
 const Tabs: FC<TabsProps> = ({ activeTab: activeTabProp, onTabChange }) => {
   type Onglet = 'tous' | 'mes' | 'favoris';
   const [activeTab, setActiveTab] = useState<Onglet>(activeTabProp as Onglet);

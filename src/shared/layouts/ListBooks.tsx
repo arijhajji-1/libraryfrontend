@@ -2,15 +2,6 @@
 import React from 'react';
 import BookCard from '../ui/card/BookCard';
 
-type BookListProps = {
-  books: Book[];
-  currentUserId: string;
-  userFavorites: string[];
-  onDelete: (id: string) => void;
-  onUpdate: (id: string) => void;
-  onFavorite: (id: string) => void;
-};
-
 const BookList: React.FC<BookListProps> = ({
   books,
   currentUserId,

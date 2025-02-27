@@ -52,14 +52,18 @@ const SignIn = () => {
         placeholder="Email"
         Icon={Mail}
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setEmail(e.target.value)
+        }
       />
       <InputField
         type="password"
         placeholder="Mot de passe"
         Icon={KeyRound}
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setPassword(e.target.value)
+        }
       />
       {error && <p className="text-red-500">{error}</p>}
       {success && <p className="text-green-500">{success}</p>}

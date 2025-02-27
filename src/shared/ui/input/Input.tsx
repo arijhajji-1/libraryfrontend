@@ -1,5 +1,4 @@
 import { type FC } from 'react';
-import { type InputFieldProps } from '../../interface/input';
 
 const InputField: FC<InputFieldProps> = ({
   type,

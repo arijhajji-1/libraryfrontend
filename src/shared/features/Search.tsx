@@ -2,11 +2,6 @@
 import { type FC, useState, useEffect, useMemo } from 'react';
 import { Search } from 'lucide-react';
 
-interface SearchInputProps {
-  items: Book[];
-  onSearch: (filtered: Book[]) => void;
-}
-
 const SearchInput: FC<SearchInputProps> = ({ items, onSearch }) => {
   const [query, setQuery] = useState<string>('');
 

@@ -2,10 +2,6 @@
 import React from 'react';
 import PDFViewer from '../pdf/pdfViewer';
 
-type BookDetailsProps = {
-  book: Book;
-};
-
 const BookDetails: React.FC<BookDetailsProps> = ({ book }) => {
   return (
     <div className="card shadow-xl rounded-2xl bg-base-200 p-4">
