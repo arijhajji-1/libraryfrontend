@@ -30,9 +30,7 @@ function Books() {
     : null;
   const token = userData ? userData.token : '';
   const currentUserId = userData ? userData._id : '';
-  const [userFavorites, setUserFavorites] = useState<string[]>(
-    userData?.favorites || [],
-  );
+  const [userFavorites, setUserFavorites] = useState<string[]>([]);
 
   const onTabChange = (tab: string) => {
     setActiveTab(tab);
@@ -71,7 +69,15 @@ function Books() {
 
     fetchBooks();
   }, [activeTab, token]);
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      if (!token) return;
+      const favorites = await getFavoriteBooks(token);
+      setUserFavorites(favorites.map((book) => book._id));
+    };
 
+    fetchFavorites();
+  }, [token]);
   const handleDelete = async (bookId: string) => {
     try {
       await deleteBook(bookId, token);
@@ -91,16 +97,16 @@ function Books() {
   const handleFavorite = async (bookId: string) => {
     try {
       if (userFavorites.includes(bookId)) {
-        // Supprimer des favoris
+        // Remove from favorites
         await removeFavoriteBook(bookId, token);
-        setUserFavorites((prev) => prev.filter((id) => id !== bookId));
+        setUserFavorites((prev) => prev.filter((id) => id !== bookId)); // Remove from state
       } else {
-        // Ajouter aux favoris
+        // Add to favorites
         await addFavoriteBook(bookId, token);
-        setUserFavorites((prev) => [bookId, ...prev]);
+        setUserFavorites((prev) => [bookId, ...prev]); // Add to state
       }
     } catch (err) {
-      console.error('Erreur lors de la mise à jour des favoris:', err);
+      console.error('Error updating favorites:', err);
     }
   };
 
