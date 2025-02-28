@@ -1,4 +1,3 @@
-// src/pages/Books.tsx
 import { useEffect, useState } from 'react';
 import BookList from './ListBooks';
 import BookFormModal from '../ui/modal/BookFormModal';
@@ -24,7 +23,6 @@ function Books() {
   const [editingBook, setEditingBook] = useState<Book | null>(null);
   const [activeTab, setActiveTab] = useState<string>('tous');
 
-  // Récupérer l'utilisateur depuis le localStorage (doit contenir _id, token et favorites)
   const userData = localStorage.getItem('user')
     ? JSON.parse(localStorage.getItem('user')!)
     : null;
@@ -93,17 +91,15 @@ function Books() {
     setModalOpen(true);
   };
 
-  // Basculer le favori en fonction du statut actuel
   const handleFavorite = async (bookId: string) => {
     try {
       if (userFavorites.includes(bookId)) {
-        // Remove from favorites
         await removeFavoriteBook(bookId, token);
-        setUserFavorites((prev) => prev.filter((id) => id !== bookId)); // Remove from state
+        setUserFavorites((prev) => prev.filter((id) => id !== bookId));
       } else {
         // Add to favorites
         await addFavoriteBook(bookId, token);
-        setUserFavorites((prev) => [bookId, ...prev]); // Add to state
+        setUserFavorites((prev) => [bookId, ...prev]);
       }
     } catch (err) {
       console.error('Error updating favorites:', err);
@@ -113,7 +109,6 @@ function Books() {
   const handleModalSubmit = async (formData: FormData) => {
     try {
       if (editingBook) {
-        // Mode édition
         const updatedBookData: Partial<
           Omit<Book, 'user' | '_id' | 'lastModified'>
         > = {

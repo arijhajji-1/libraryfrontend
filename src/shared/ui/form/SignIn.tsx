@@ -19,10 +19,8 @@ const SignIn = () => {
     try {
       const data: LoginResponse = await login(payload);
       console.log('Logged in user:', data);
-      // Save the entire user object in localStorage
       localStorage.setItem('user', JSON.stringify(data));
       setSuccess('Connexion réussie ! Redirection vers la page d’accueil...');
-      // Redirect to the home page after a short delay
       setTimeout(() => {
         navigate('/');
       }, 1500);

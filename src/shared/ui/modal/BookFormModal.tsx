@@ -14,7 +14,6 @@ const BookFormModal: FC<BookFormModalProps> = ({
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string>('');
 
-  // Update form fields if initialData changes (e.g. when editing)
   useEffect(() => {
     setTitle(initialData?.title ?? '');
     setAuthor(initialData?.author ?? '');
@@ -24,7 +23,6 @@ const BookFormModal: FC<BookFormModalProps> = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
-    // Validate required fields; for editing, you might not require a new file.
     if (!title || !author || (!file && !initialData)) {
       setError(
         'Veuillez remplir les champs requis et sélectionner un fichier PDF.',
@@ -35,13 +33,11 @@ const BookFormModal: FC<BookFormModalProps> = ({
     formData.append('title', title);
     formData.append('author', author);
     formData.append('note', note);
-    // Only append file if provided (for edit, file may be optional)
     if (file) {
       formData.append('pdfUrl', file);
     }
     try {
       await onSubmit(formData);
-      // On success, clear the form and close the modal
       setTitle('');
       setAuthor('');
       setNote('');

@@ -23,11 +23,9 @@ const SignUp = () => {
       setSuccess(
         'Inscription réussie ! Redirection vers la page de connexion...',
       );
-      // Réinitialiser les champs
       setName('');
       setEmail('');
       setPassword('');
-      // Rediriger vers la page de connexion après un court délai
       setTimeout(() => {
         navigate('/signin');
       }, 1500);

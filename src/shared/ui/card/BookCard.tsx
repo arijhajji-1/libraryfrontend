@@ -1,4 +1,3 @@
-// src/components/BookCard.tsx
 import React from 'react';
 import { Heart, Edit, Trash2 } from 'lucide-react';
 import img from '../../../assets/jonas-jacobsson-0FRJ2SCuY4k-unsplash.jpg';
@@ -14,7 +13,6 @@ const BookCard: React.FC<BookCardProps> = ({
   currentUserId,
   userFavorites,
 }) => {
-  // Détermine si le livre est favori en vérifiant si son ID est présent dans le tableau des favoris
   const isFavorite = userFavorites.includes(book._id);
 
   return (

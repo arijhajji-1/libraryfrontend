@@ -1,4 +1,3 @@
-// src/components/BookList.tsx
 import React from 'react';
 import BookCard from '../ui/card/BookCard';
 
