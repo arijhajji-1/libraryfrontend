@@ -13,7 +13,8 @@ import {
 } from '../../service/Bookservices';
 import Tabs from '../ui/tabs/Tabs';
 import SearchInput from '../features/Search';
-
+import { useToast } from '../../context/ToastContext';
+import LoadingOrError from './LoadingOrError';
 function Books() {
   const [books, setBooks] = useState<Book[]>([]);
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
@@ -22,7 +23,7 @@ function Books() {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [editingBook, setEditingBook] = useState<Book | null>(null);
   const [activeTab, setActiveTab] = useState<string>('tous');
-
+  const { showToast } = useToast();
   const userData = localStorage.getItem('user')
     ? JSON.parse(localStorage.getItem('user')!)
     : null;
@@ -81,6 +82,7 @@ function Books() {
       await deleteBook(bookId, token);
       setBooks((prev) => prev.filter((book) => book._id !== bookId));
       setFilteredBooks((prev) => prev.filter((book) => book._id !== bookId));
+      showToast('Livre supprimé', 'info');
     } catch (err) {
       console.error('Erreur lors de la suppression du livre:', err);
     }
@@ -96,10 +98,12 @@ function Books() {
       if (userFavorites.includes(bookId)) {
         await removeFavoriteBook(bookId, token);
         setUserFavorites((prev) => prev.filter((id) => id !== bookId));
+        showToast('Livre retiré des favoris', 'info');
       } else {
         // Add to favorites
         await addFavoriteBook(bookId, token);
         setUserFavorites((prev) => [bookId, ...prev]);
+        showToast('Livre ajouté aux favoris', 'success');
       }
     } catch (err) {
       console.error('Error updating favorites:', err);
@@ -131,11 +135,13 @@ function Books() {
             book._id === editingBook._id ? updatedBook : book,
           ),
         );
+        showToast('Livre mis à jour', 'success');
       } else {
         // Mode ajout
         const newBook = await addBook(formData, token);
         setBooks((prev) => [newBook, ...prev]);
         setFilteredBooks((prev) => [newBook, ...prev]);
+        showToast('Livre ajouté', 'success');
       }
     } catch (err) {
       console.error("Erreur lors de l'enregistrement du livre:", err);
@@ -149,12 +155,14 @@ function Books() {
     <div className="max-h-screen">
       <Tabs activeTab={activeTab} onTabChange={onTabChange} />
       <div className="p-4">
-        <div className="flex items-center justify-between mb-4">
-          <h1 className="text-3xl font-bold">Tableau de bord des livres</h1>
-          <div className="flex items-center">
+        <div className="flex flex-col sm:flex-row items-center justify-between mb-4 gap-4">
+          <h1 className="text-2xl sm:text-3xl font-bold">
+            Tableau de bord des livres
+          </h1>
+          <div className="flex flex-col sm:flex-row items-center w-full sm:w-auto gap-2">
             <SearchInput items={books} onSearch={setFilteredBooks} />
             <button
-              className="btn ml-2 btn-primary btn-outline"
+              className="btn btn-primary btn-outline w-full sm:w-auto ml-0 sm:ml-2"
               onClick={() => {
                 setEditingBook(null);
                 setModalOpen(true);
@@ -164,9 +172,7 @@ function Books() {
             </button>
           </div>
         </div>
-        {loading && <p>Chargement...</p>}
-        {error && <p className="text-red-500">{error}</p>}
-        {!loading && books.length === 0 && <p>Aucun livre trouvé.</p>}
+        <LoadingOrError loading={loading} error={error} gotBooks={!!books} />
         {books.length > 0 && (
           <BookList
             books={filteredBooks}

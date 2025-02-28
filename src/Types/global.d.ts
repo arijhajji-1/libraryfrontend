@@ -57,6 +57,7 @@ declare interface InputFieldProps {
   placeholder: string;
   Icon: FC<{ className: string }>;
   value?: string;
+  error?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 declare type BookFormModalProps = {
@@ -99,4 +100,17 @@ declare type TabsProps = {
 
 declare type PDFViewerProps = {
   fileUrl: string; // URL of the PDF file
+};
+declare interface ToastContextType {
+  showToast: (message: string, type: 'success' | 'info') => void;
+}
+declare type LoadingOrErrorProps = {
+  loading: boolean;
+  error: string | null;
+  gotBooks: boolean;
+};
+type ToastProps = {
+  toastType: string;
+  toastMessage: string;
+  onClose: () => void;
 };

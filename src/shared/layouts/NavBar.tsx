@@ -30,7 +30,7 @@ const NavBar: FC<NavBarProps> = () => {
       {/* SearchInput, Theme Toggle and Logout */}
       <div className="flex items-center gap-4">
         <ThemeToggle />
-        <button className="btn btn-outline btn-sm" onClick={handleLogout}>
+        <button className="btn btn-primary btn-sm" onClick={handleLogout}>
           Déconnexion
         </button>
         <div className="avatar">

@@ -1,7 +1,8 @@
 // src/components/BookFormModal.tsx
 import { useState, useEffect } from 'react';
 import type { FC } from 'react';
-
+import InputField from '../input/Input';
+import { Book, User, FileText } from 'lucide-react';
 const BookFormModal: FC<BookFormModalProps> = ({
   isOpen,
   onClose,
@@ -13,7 +14,11 @@ const BookFormModal: FC<BookFormModalProps> = ({
   const [note, setNote] = useState<string>(initialData?.note ?? '');
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string>('');
-
+  const [errors, setErrors] = useState<{
+    title?: string;
+    author?: string;
+    file?: string;
+  }>({});
   useEffect(() => {
     setTitle(initialData?.title ?? '');
     setAuthor(initialData?.author ?? '');
@@ -22,30 +27,44 @@ const BookFormModal: FC<BookFormModalProps> = ({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError('');
-    if (!title || !author || (!file && !initialData)) {
-      setError(
-        'Veuillez remplir les champs requis et sélectionner un fichier PDF.',
-      );
-      return;
-    }
+    if (!validateForm()) return;
     const formData = new FormData();
     formData.append('title', title);
     formData.append('author', author);
     formData.append('note', note);
+
     if (file) {
       formData.append('pdfUrl', file);
     }
+
     try {
       await onSubmit(formData);
+
       setTitle('');
       setAuthor('');
       setNote('');
       setFile(null);
+      setErrors({});
       onClose();
     } catch {
-      setError('Une erreur est survenue.');
+      setErrors({ title: "Une erreur est survenue lors de l'enregistrement." });
     }
+  };
+  const validateForm = () => {
+    const newErrors: { title?: string; author?: string; file?: string } = {};
+
+    if (!title.trim() || title.length < 3) {
+      newErrors.title = 'Le titre doit contenir au moins 3 caractères.';
+    }
+    if (!author.trim() || author.length < 3) {
+      newErrors.author = "L'auteur doit contenir au moins 3 caractères.";
+    }
+    if (!file && !initialData) {
+      newErrors.file = 'Veuillez sélectionner un fichier PDF.';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   return (
@@ -55,58 +74,53 @@ const BookFormModal: FC<BookFormModalProps> = ({
           {initialData ? 'Modifier le livre' : 'Ajouter un nouveau livre'}
         </h3>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="Title" className="label">
-              <span className="label-text">Titre</span>
-            </label>
-            <input
-              type="text"
-              placeholder="Titre du livre"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="input input-bordered w-full"
-            />
-          </div>
-          <div>
-            <label htmlFor="author" className="label">
-              <span className="label-text">Auteur</span>
-            </label>
-            <input
-              type="text"
-              placeholder="Nom de l'auteur"
-              value={author}
-              onChange={(e) => setAuthor(e.target.value)}
-              className="input input-bordered w-full"
-            />
-          </div>
-          <div>
-            <label htmlFor="Note" className="label">
-              <span className="label-text">Note</span>
-            </label>
-            <textarea
-              placeholder="Ajouter une note (optionnel)"
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              className="textarea textarea-bordered w-full"
-            />
-          </div>
-          <div>
-            <label htmlFor="pdfFile" className="label">
-              <span className="label-text">Fichier PDF</span>
-            </label>
-            <input
-              type="file"
-              id="pdfFile"
-              accept="application/pdf"
-              onChange={(e) => {
-                if (e.target.files?.[0]) {
-                  setFile(e.target.files[0]);
-                }
-              }}
-              className="file-input file-input-bordered w-full"
-            />
-          </div>
-          {error && <p className="text-red-500">{error}</p>}
+          {/* Title Input */}
+          <InputField
+            type="text"
+            placeholder="Titre du livre"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            Icon={Book}
+            error={errors.title} // Pass error message
+          />
+
+          {/* Author Input */}
+          <InputField
+            type="text"
+            placeholder="Nom de l'auteur"
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+            Icon={User}
+            error={errors.author}
+          />
+
+          {/* Note Input */}
+          <textarea
+            placeholder="Ajouter une note (optionnel)"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            className="textarea textarea-bordered w-full"
+          />
+
+          {/* File Input */}
+          <label className="label">
+            <span className="label-text">Fichier PDF</span>
+          </label>
+          <input
+            type="file"
+            accept="application/pdf"
+            onChange={(e) => {
+              if (e.target.files && e.target.files[0]) {
+                setFile(e.target.files[0]);
+              }
+            }}
+            className="file-input file-input-bordered w-full"
+          />
+          {errors.file && (
+            <p className="text-red-500 text-sm mt-1">{errors.file}</p>
+          )}
+
+          {/* Action Buttons */}
           <div className="modal-action">
             <button type="submit" className="btn btn-primary">
               {initialData ? 'Mettre à jour' : 'Ajouter'}

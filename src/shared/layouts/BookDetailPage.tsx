@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import BookDetails from '../ui/card/BookDetails';
 import { getBook } from '../../service/Bookservices';
-
+import LoadingOrError from './LoadingOrError';
 const BookDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
   const [book, setBook] = useState<Book | null>(null);
@@ -32,12 +32,10 @@ const BookDetailsPage = () => {
     fetchBook();
   }, [id, token]);
 
-  if (loading) return <p>Chargement...</p>;
-  if (error || !book) return <p>{error || 'Livre non trouvé'}</p>;
-
   return (
     <div className="min-h-screen py-8">
-      <BookDetails book={book} />
+      <LoadingOrError loading={loading} error={error} gotBooks={!!book} />
+      {book && <BookDetails book={book} />}
     </div>
   );
 };

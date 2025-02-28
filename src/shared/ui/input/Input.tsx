@@ -6,18 +6,22 @@ const InputField: FC<InputFieldProps> = ({
   Icon,
   value,
   onChange,
+  error,
 }) => {
   return (
-    <label className="input input-bordered flex items-center gap-2">
-      <Icon className="h-4 w-4 opacity-70" />
-      <input
-        type={type}
-        className="grow"
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-      />
-    </label>
+    <div className="w-full">
+      <label className="input input-bordered flex items-center gap-2">
+        <Icon className="h-4 w-4 opacity-70" />
+        <input
+          type={type}
+          className="grow"
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+        />
+      </label>
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+    </div>
   );
 };
 
