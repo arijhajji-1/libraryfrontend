@@ -101,34 +101,6 @@ docker run -d -p 80:80 zlib-frontend
 
 L’application sera alors accessible sur http://localhost.
 
-## 📁 Structure du Projet
-
-Le projet est organisé comme suit :
-
-```sh
-src/
-  ├── assets/          # Contient les ressources statiques (images, etc.)
-  ├── entities/        # Types ou interfaces métier
-  ├── pages/           # Composants de pages (ex. Home, Auth, BookDetails, etc.)
-  ├── service/         # Fonctions de logique métier ou appels API
-  ├── shared/          # Composants et utilitaires partagés (layout, hooks, etc.)
-  ├── App.css
-  ├── App.tsx          # Point d'entrée principal de l'application
-  ├── index.css
-  ├── main.tsx         # Point d'entrée React
-  ├── privateRoute.tsx # Garde de route pour la protection des pages
-  └── vite-env.d.ts    # Déclarations de types pour Vite
-```
-
-- assets/ : Contient les ressources statiques (images, etc.)
-- entities/ : Types ou interfaces métier
-- pages/ : Composants de pages (ex. Home, Auth, BookDetails, etc.)
-- service/ : Fonctions de logique métier ou appels API
-- shared/ : Composants et utilitaires partagés (layout, hooks, etc.)
-- App.tsx / main.tsx : Points d’entrée de l’application
-- privateRoute.tsx : Garde de route pour la protection des pages
-- vite-env.d.ts : Déclarations de types pour Vite
-
 ## ⚙️ Utilisation
 
 Navigation :
@@ -136,11 +108,11 @@ L’utilisateur doit se connecter pour accéder au tableau de bord.
 S’il n’est pas authentifié, il est redirigé vers la page de connexion.
 
 - Ajout/Modification de Livres :
-  Le tableau de bord permet d’ajouter, modifier et supprimer des livres via un formulaire.
+  Le tableau de bord permet d’ajouter, modifier et supprimer des livres via un formulaire(vous ne pouvez supprimer/modifier que les livres que vous avez créés).
   Chaque livre dispose d’une page dédiée, affichant ses informations et un lecteur PDF.
 
 - Recherche :
-  La barre de recherche dans la NavBar filtre la liste des livres affichés.
+  La barre de recherche filtre la liste des livres affichés.
 
 ## 🛡 Qualité du Code
 
